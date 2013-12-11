@@ -1043,13 +1043,16 @@ void poisonCloud( gentity_t *ent )
       if( tr.entityNum == ENTITYNUM_WORLD )
         continue;
 
-      if( !( humanPlayer->client->ps.stats[ STAT_STATE ] & SS_POISONCLOUDED ) )
-      {
+      if( !BG_InventoryContainsUpgrade( UP_BATTLESUIT, humanPlayer->client->ps.stats )
+        || !BG_InventoryContainsUpgrade( UP_HELMET, humanPlayer->client->ps.stats )  )
+	    {
         humanPlayer->client->ps.stats[ STAT_STATE ] |= SS_POISONCLOUDED;
         humanPlayer->client->lastPoisonCloudedTime = level.time;
         humanPlayer->client->lastPoisonCloudedClient = ent;
         trap_SendServerCommand( humanPlayer->client->ps.clientNum, "poisoncloud" );
-      }
+	    }
+      else
+        humanPlayer->client->ps.stats[ STAT_STATE ] |= SS_POISONED;
     }
   }
   G_UnlaggedOff( );
