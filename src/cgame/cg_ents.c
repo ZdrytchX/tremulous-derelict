@@ -947,12 +947,25 @@ static void CG_CalcEntityLerpPositions( centity_t *cent )
     return;
   }
 
-  if( cg_projectileNudge.integer > 0 &&
+//1: If in demo state or unlagged off, set proj.nudge to 0
+//2: Vanilla Lakitu7-style projectilenudge, before my modifications. Means they will still bug in demos and stuff.
+//3 or more: Use this value as msec to nudge ahead. 
+  if( cg_projectileNudge.integer != 0 &&
     cent->currentState.eType == ET_MISSILE &&
     !( cg.snap->ps.pm_flags & PMF_FOLLOW ) )
   {
+        if(cg_projectileNudge.integer > 2)//for the stupid servers which unlagged isn't calculated 100% correct :)
+        {
+           timeshift = cg_projectileNudge.integer;
+        }
+  else if( cg.demoPlayback && cg_projectileNudge.integer == 1 )//don't want it hard-coded
+    timeshift = 0;//demos show ping = 999999 or something
+  else if(cg_projectileNudge.integer == 1 && cg_unlagged.integer != 1)
+    timeshift = 0;//people don't like having to see projectilenudge with lagged; it screws up their aim
+  else
     timeshift = cg.ping;
   }
+  //TODO: Use projectilenudge's code for calculating unlagged for projectiles :)
 
   // just use the current frame and evaluate as best we can
   BG_EvaluateTrajectory( &cent->currentState.pos,
