@@ -1270,6 +1270,10 @@ typedef struct
 
   qhandle_t   buildWeaponTimerPie[ 8 ];
   qhandle_t   upgradeClassIconShader;
+
+  //hitsounds and self-crit (slot 10)
+  sfxHandle_t hitSound[ 10 ];
+
 } cgMedia_t;
 
 typedef struct
@@ -1532,6 +1536,10 @@ extern  vmCvar_t    cg_debugRandom;
 extern  vmCvar_t    cg_optimizePrediction;
 extern  vmCvar_t    cg_projectileNudge;
 extern  vmCvar_t    cg_unlagged;
+
+//zdrytchx
+extern  vmCvar_t    cg_hitsound;
+//todo: cg_thirdpersonheight, and for my own client bug (that I still haven't found, as it exists in tremulous gpp too) cg_firstpersonanglefix_yaw
 
 //
 // cg_main.c

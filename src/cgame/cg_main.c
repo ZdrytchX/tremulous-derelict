@@ -241,6 +241,9 @@ vmCvar_t  cg_optimizePrediction;
 vmCvar_t  cg_projectileNudge;
 vmCvar_t  cg_unlagged;
 
+//zdrytchx
+vmCvar_t  cg_hitsound;
+
 
 typedef struct
 {
@@ -384,8 +387,10 @@ static cvarTable_t cvarTable[ ] =
   { &cg_oldRail, "cg_oldRail", "1", CVAR_ARCHIVE},
   { &cg_oldRocket, "cg_oldRocket", "1", CVAR_ARCHIVE},
   { &cg_oldPlasma, "cg_oldPlasma", "1", CVAR_ARCHIVE},
-  { &cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE}
+  { &cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE},
 //  { &cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO | CVAR_ARCHIVE }
+//ZdrytchX
+  { &cg_hitsound, "cg_hitsound", "3", CVAR_ARCHIVE},
 };
 
 static int   cvarTableSize = sizeof( cvarTable ) / sizeof( cvarTable[0] );
@@ -707,6 +712,25 @@ static void CG_RegisterSounds( void )
 
   cgs.media.humanBuildableExplosion = trap_S_RegisterSound( "sound/buildables/human/explosion.wav", qfalse );
   cgs.media.humanBuildablePrebuild  = trap_S_RegisterSound( "sound/buildables/human/prebuild.wav", qfalse );
+
+  //hitsounds
+  //ZdrytchX: they don't play error messages if files are missing, so newbies don't get spammed if they didn't
+  //download the hitsound mod but has the cgame.qvm mod
+	cgs.media.hitSound[0] = trap_S_RegisterSound( "sound/feedback/hit4.wav", qfalse );
+	cgs.media.hitSound[1] = trap_S_RegisterSound( "sound/feedback/hit8.wav", qfalse );
+	cgs.media.hitSound[2] = trap_S_RegisterSound( "sound/feedback/hit12.wav", qfalse );
+	cgs.media.hitSound[3] = trap_S_RegisterSound( "sound/feedback/hit25.wav", qfalse );
+
+	//unumbered because this is used for monotone hitsounds, this has higher priority over the rest, I'll
+	//probably make the hitsounds for you using famitracker :)
+	cgs.media.hitSound[4] = trap_S_RegisterSound( "sound/feedback/hit.wav", qfalse  );
+
+	cgs.media.hitSound[5] = trap_S_RegisterSound( "sound/feedback/hit75.wav", qfalse  );
+	cgs.media.hitSound[6] = trap_S_RegisterSound( "sound/feedback/hit100.wav", qfalse  );
+	cgs.media.hitSound[7] = trap_S_RegisterSound( "sound/feedback/hit125.wav", qfalse  );
+	cgs.media.hitSound[8] = trap_S_RegisterSound( "sound/feedback/hit150.wav", qfalse  );
+	//(self) critical hit!
+	cgs.media.hitSound[9] = trap_S_RegisterSound( "sound/feedback/hitcrit.wav", qfalse  );
 
   for( i = 0; i < 4; i++ )
     cgs.media.humanBuildableDamage[ i ] = trap_S_RegisterSound(
