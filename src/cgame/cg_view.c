@@ -638,6 +638,31 @@ static void CG_OffsetFirstPersonView( void )
 
       angles[ PITCH ] -= deltaAngle;
     }
+
+  //ZdrytchX: Personal view bug fix hack [see youtube.com/zdrytchx: mdriver false bullet physics test,
+  //you'll see how annoying it is in sniping for me, turns out the correction value for myself is approx
+  //-1.19 degrees that actualy changes with pitch... I need to find a way to fix this.]
+  //@jkent: Thinking of which, I have an idea: facetracker compatability, haha...
+    if( cg_firstpersonanglefix_yaw.value != 0)
+    {
+        if( cg_firstpersonanglefix_yaw.value > 20) //TODO: make sure we don't cheat here! (doesn't work)
+        trap_Cvar_Set( "cg_firstpersonanglefix_yaw.value", "20" );
+        else if( cg_firstpersonanglefix_yaw.value < -20)
+        trap_Cvar_Set( "cg_firstpersonanglefix_yaw.value", "-20" );
+        //Set angle fix! 
+        angles[ YAW ] += cg_firstpersonanglefix_yaw.value; //left is positive (backward people's tradition)
+    }
+
+    if( cg_firstpersonanglefix_pitch.value != 0)
+    {
+        if( cg_firstpersonanglefix_pitch.value > 20) //TODO: make sure we don't cheat here! (doesn't work)
+        trap_Cvar_Set( "cg_firstpersonanglefix_pitch.value", "20" );
+        else if( cg_firstpersonanglefix_pitch.value < -20)
+        trap_Cvar_Set( "cg_firstpersonanglefix_pitch.value", "-20" );
+        //Set angle fix! 
+        angles[ PITCH ] -= cg_firstpersonanglefix_pitch.value; //up is positive
+    }
+
   }
 
 //===================================

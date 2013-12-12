@@ -243,6 +243,8 @@ vmCvar_t  cg_unlagged;
 
 //zdrytchx
 vmCvar_t  cg_hitsound;
+vmCvar_t  cg_firstpersonanglefix_yaw;
+vmCvar_t  cg_firstpersonanglefix_pitch;
 
 
 typedef struct
@@ -391,6 +393,8 @@ static cvarTable_t cvarTable[ ] =
 //  { &cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO | CVAR_ARCHIVE }
 //ZdrytchX
   { &cg_hitsound, "cg_hitsound", "3", CVAR_ARCHIVE},
+  { &cg_firstpersonanglefix_yaw, "cg_firstpersonanglefix_yaw", "0", CVAR_ARCHIVE},
+  { &cg_firstpersonanglefix_pitch, "cg_firstpersonanglefix_pitch", "0", CVAR_ARCHIVE},
 };
 
 static int   cvarTableSize = sizeof( cvarTable ) / sizeof( cvarTable[0] );

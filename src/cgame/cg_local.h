@@ -1539,7 +1539,12 @@ extern  vmCvar_t    cg_unlagged;
 
 //zdrytchx
 extern  vmCvar_t    cg_hitsound;
-//todo: cg_thirdpersonheight, and for my own client bug (that I still haven't found, as it exists in tremulous gpp too) cg_firstpersonanglefix_yaw
+//todo: cg_thirdpersonheight
+
+//for my own RARE client bug (that I still haven't found, and it exists in tremulous gpp too);
+//I doubt anyone has the same issue as me
+extern  vmCvar_t    cg_firstpersonanglefix_yaw;
+extern  vmCvar_t    cg_firstpersonanglefix_pitch;
 
 //
 // cg_main.c
