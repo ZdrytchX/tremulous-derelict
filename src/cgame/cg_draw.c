@@ -1721,7 +1721,7 @@ static void CG_DrawFPS( rectDef_t *rect, float text_x, float text_y,
   static int  previousTimes[ FPS_FRAMES ];
   static int  index;
   int         i, total;
-  int         fps;
+  int         fps, speedvel;
   static int  previous;
   int         t, frameTime;
 
@@ -1750,7 +1750,52 @@ static void CG_DrawFPS( rectDef_t *rect, float text_x, float text_y,
 
     fps = 1000 * FPS_FRAMES / total;
 
-    s = va( "%d", fps );
+    //draw speed and bars
+    //@jkent: Is there a more better way than this?
+    speedvel = cg.xyspeed;
+
+    if( cg_drawFPS.integer == 2 )//sneak speedometer into vanilla HUDs
+     {
+     if(speedvel < 100)
+     s = va( "%d[--:-----]   %03d", speedvel, fps);
+     else if(speedvel < 200)
+     s = va( "%d[I-:-----]   %03d", speedvel, fps);
+     else if(speedvel < 300)
+     s = va( "%d[II:-----]   %03d", speedvel, fps);
+     else if(speedvel < 400)
+     s = va( "%d[III-----]   %03d", speedvel, fps);
+     else if(speedvel < 500)
+     s = va( "%d[IIII----]   %03d", speedvel, fps);
+     else if(speedvel < 600)
+     s = va( "%d[IIIII---]   %03d", speedvel, fps);
+     else if(speedvel < 700)
+     s = va( "%d[IIIIII--]   %03d", speedvel, fps);
+     else if(speedvel < 800)
+     s = va( "%d[IIIIIII-]   %03d", speedvel, fps);
+     else if(speedvel < 900)
+     s = va( "%d[IIIIIIII]   %03d", speedvel, fps);
+     else if(speedvel < 1000)
+     s = va( "%d[XIIIIIII]   %03d", speedvel, fps);
+     else if(speedvel < 1100)
+     s = va( "%d[XXIIIIII]   %03d", speedvel, fps);
+     else if(speedvel < 1200)
+     s = va( "%d[XXXIIIII]   %03d", speedvel, fps);
+     else if(speedvel < 1300)
+     s = va( "%d[XXXXIIII]   %03d", speedvel, fps);
+     else if(speedvel < 1400)
+     s = va( "%d[XXXXXIII]   %03d", speedvel, fps);
+     else if(speedvel < 1500)
+     s = va( "%d[XXXXXXII]   %03d", speedvel, fps);
+     else if(speedvel < 1600)
+     s = va( "%d[XXXXXXXI]   %03d", speedvel, fps);
+     else
+     s = va( "%d[SPEEDING]   %03d", speedvel, fps);
+     }
+    //default
+    else {
+      s = va( "%d", fps );
+    }
+
     w = CG_Text_Width( "0", scale, 0 );
     strLength = CG_DrawStrlen( s );
     totalWidth = CG_Text_Width( FPS_STRING, scale, 0 ) + w * strLength;
