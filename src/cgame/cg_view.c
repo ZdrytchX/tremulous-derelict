@@ -308,7 +308,7 @@ static void CG_OffsetThirdPersonView( void )
 
   VectorCopy( cg.refdef.vieworg, view );
 
-  VectorMA( view, 12, surfNormal, view );
+  VectorMA( view, cg_thirdpersonheight.integer, surfNormal, view ); //12
 
   //cg.refdefViewAngles[PITCH] *= 0.5;
 

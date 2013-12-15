@@ -1539,7 +1539,7 @@ extern  vmCvar_t    cg_unlagged;
 
 //zdrytchx
 extern  vmCvar_t    cg_hitsound;
-//todo: cg_thirdpersonheight
+extern  vmCvar_t    cg_thirdpersonheight;
 
 //for my own RARE client bug (that I still haven't found, and it exists in tremulous gpp too);
 //I doubt anyone has the same issue as me

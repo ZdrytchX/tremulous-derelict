@@ -243,6 +243,7 @@ vmCvar_t  cg_unlagged;
 
 //zdrytchx
 vmCvar_t  cg_hitsound;
+vmCvar_t  cg_thirdpersonheight;
 vmCvar_t  cg_firstpersonanglefix_yaw;
 vmCvar_t  cg_firstpersonanglefix_pitch;
 
@@ -311,9 +312,10 @@ static cvarTable_t cvarTable[ ] =
   { &cg_tracerChance, "cg_tracerchance", "0.4", CVAR_CHEAT },
   { &cg_tracerWidth, "cg_tracerwidth", "1", CVAR_CHEAT },
   { &cg_tracerLength, "cg_tracerlength", "100", CVAR_CHEAT },
-  { &cg_thirdPersonRange, "cg_thirdPersonRange", "40", CVAR_CHEAT },
+  { &cg_thirdPersonRange, "cg_thirdPersonRange", "80", CVAR_CHEAT },
   { &cg_thirdPersonAngle, "cg_thirdPersonAngle", "0", CVAR_CHEAT },
-  { &cg_thirdPerson, "cg_thirdPerson", "0", CVAR_CHEAT },
+  //@Jeff: Is it ok? It's not like it's that useful :)
+  { &cg_thirdPerson, "cg_thirdPerson", "0", CVAR_ARCHIVE },
   { &cg_forceModel, "cg_forceModel", "0", CVAR_ARCHIVE  },
   { &cg_predictItems, "cg_predictItems", "1", CVAR_ARCHIVE },
   { &cg_deferPlayers, "cg_deferPlayers", "1", CVAR_ARCHIVE },
@@ -393,6 +395,7 @@ static cvarTable_t cvarTable[ ] =
 //  { &cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO | CVAR_ARCHIVE }
 //ZdrytchX
   { &cg_hitsound, "cg_hitsound", "3", CVAR_ARCHIVE},
+  { &cg_thirdpersonheight, "cg_thirdpersonheight", "12", CVAR_ARCHIVE},
   { &cg_firstpersonanglefix_yaw, "cg_firstpersonanglefix_yaw", "0", CVAR_ARCHIVE},
   { &cg_firstpersonanglefix_pitch, "cg_firstpersonanglefix_pitch", "0", CVAR_ARCHIVE},
 };
@@ -725,8 +728,8 @@ static void CG_RegisterSounds( void )
 	cgs.media.hitSound[2] = trap_S_RegisterSound( "sound/feedback/hit12.wav", qfalse );
 	cgs.media.hitSound[3] = trap_S_RegisterSound( "sound/feedback/hit25.wav", qfalse );
 
-	//unumbered because this is used for monotone hitsounds, this has higher priority over the rest, I'll
-	//probably make the hitsounds for you using famitracker :)
+	//unumbered because this is used for monotone hitsounds, this has higher priority over the rest,
+	//I have made the first using famitracker, I'll do the rest later :)
 	cgs.media.hitSound[4] = trap_S_RegisterSound( "sound/feedback/hit.wav", qfalse  );
 
 	cgs.media.hitSound[5] = trap_S_RegisterSound( "sound/feedback/hit75.wav", qfalse  );
