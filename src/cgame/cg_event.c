@@ -82,100 +82,100 @@ static void CG_Obituary( entityState_t *ent )
   switch( mod )
   {
     case MOD_SUICIDE:
-      message = "suicides";
+      message = "just wanted to reincarnate via extreme pain";
       break;
     case MOD_FALLING:
-      message = "fell fowl to gravity";
+      message = "bounced to heaven using the Eq: F = mg";
       break;
     case MOD_CRUSH:
-      message = "was squished";
+      message = "turned into two-dimensional mesh";
       break;
     case MOD_WATER:
-      message = "forgot to pack a snorkel";
+      message = "didn't know how to swim properly";
       break;
     case MOD_SLIME:
-      message = "melted";
+      message = "thought acid tasted good";
       break;
     case MOD_LAVA:
-      message = "does a back flip into the lava";
+      message = "somehow melted into slag before he could burn";
       break;
-    case MOD_TARGET_LASER:
-      message = "saw the light";
+    case MOD_TARGET_LASER: //was used by lockblob in my old mod, tremulous doesn't support LASERs in maps
+      message = "almost dodged a vicious projectile";
       break;
     case MOD_TRIGGER_HURT:
-      message = "was in the wrong place";
+      message = "must've died somehow";
       break;
     case MOD_HSPAWN:
-      message = "should have run further";
+      message = "was killed in flying gibs of metal.";
       break;
     case MOD_ASPAWN:
-      message = "shouldn't have trod in the acid";
+      message = "shouldn't have stayed near that organic structure's remains";
       break;
     case MOD_MGTURRET:
-      message = "was gunned down by a turret";
+      message = "was ripped apart by a turret's bullet stream";
       break;
     case MOD_TESLAGEN:
-      message = "was zapped by a tesla generator";
+      message = "had a deadly electrical massage";
       break;
     case MOD_ATUBE:
-      message = "was melted by an acid tube";
+      message = "went near the baby tubes to shower off his dead skin";
       break;
     case MOD_OVERMIND:
-      message = "got too close to the overmind";
+      message = "shouldn't have and couldn't convince the Overmind for an intercourse";
       break;
     case MOD_REACTOR:
-      message = "got too close to the reactor";
+      message = "didn't know the spinning thing created electricity";
       break;
-    case MOD_SLOWBLOB:
-      message = "should have visited a medical station";
-      break;
+//    case MOD_SLOWBLOB:
+//      message = "failed to make love with the ^2goo";
+//      break;
     case MOD_SWARM:
-      message = "was hunted down by the swarm";
+      message = "shouldn't have approached that hive";
       break;
     default:
-      message = NULL;
+      message = "decided to choose the afterlife";//NULL - At least return a MOD
       break;
   }
 
-  if( attacker == target )
+  if( attacker == target )//Genders are dependant on character (i.e. Sarge), not the /sex cvar
   {
     gender = ci->gender;
     switch( mod )
     {
       case MOD_FLAMER_SPLASH:
         if( gender == GENDER_FEMALE )
-          message = "toasted herself";
+          message = "thought this was 1.2 tremulous.";
         else if( gender == GENDER_NEUTER )
-          message = "toasted itself";
+          message = "toasted oneself";
         else
-          message = "toasted himself";
+          message = "tried to make barbeque";
         break;
 
       case MOD_LCANNON_SPLASH:
         if( gender == GENDER_FEMALE )
-          message = "irradiated herself";
+          message = "should've learned not to luci spam";
         else if( gender == GENDER_NEUTER )
-          message = "irradiated itself";
+          message = "tried a luci jump";
         else
-          message = "irradiated himself";
+          message = "'s body blew up into a magnificent firework display";
         break;
 
       case MOD_GRENADE:
         if( gender == GENDER_FEMALE )
-          message = "blew herself up";
+          message = "had her nade betray her";
         else if( gender == GENDER_NEUTER )
           message = "blew itself up";
         else
-          message = "blew himself up";
+          message = "'s had their nade betray them";
         break;
 
       default:
         if( gender == GENDER_FEMALE )
-          message = "killed herself";
+          message = "suicided";
         else if( gender == GENDER_NEUTER )
-          message = "killed itself";
+          message = "^1died.";
         else
-          message = "killed himself";
+          message = "had to get away from the war";
         break;
     }
   }
@@ -205,125 +205,122 @@ static void CG_Obituary( entityState_t *ent )
   {
     switch( mod )
     {
+      case MOD_SLOWBLOB:
+        message = "shouldn't have messed with";
+        message2 = "'s ^2granger goo";
+        break;
       case MOD_PAINSAW:
-        message = "was sawn by";
+        message = "was scratched into peices by";
+        message2 = "'s p^5e^7insaw";
         break;
       case MOD_BLASTER:
-        message = "was blasted by";
+        message = "was slowly =Powned with beauty by";
+        message2 = "'s blaster energy slug";
         break;
       case MOD_MACHINEGUN:
-        message = "was machinegunned by";
+        message = "was exterminated by";
+        message2 = "'s pellet storm";
         break;
       case MOD_CHAINGUN:
-        message = "was chaingunned by";
+        message = "was easily mowed down by";
+        message2 = "'s combat gatling gun";
         break;
       case MOD_SHOTGUN:
-        message = "was gunned down by";
+        message = "'s body suffered the shock of the 37mm sabot from";
+        message2 = "'s shotgun";
         break;
       case MOD_PRIFLE:
-        message = "was pulse rifled by";
+        message = "couldn't run from";
+        message2 = "'s plasma clouds";
         break;
       case MOD_MDRIVER:
-        message = "was mass driven by";
+        message = "learnt a lesson in nuclear physics from le Prof.";
+        message2 = "'s particle acceleration device";
         break;
       case MOD_LASGUN:
-        message = "was lasgunned by";
+        message = "was cooked by";
+        message2 = "'s Light-Amplification-by-S.H.E.E.T.-GUN intensity setting";
         break;
       case MOD_FLAMER:
-        message = "was grilled by";
-        message2 = "'s flamer";
+        message = "was ^1baked^7 by";
+        message2 = "'s portable incinerater";
         break;
       case MOD_FLAMER_SPLASH:
-        message = "was toasted by";
-        message2 = "'s flamer";
+        message = "was unintentionally caught in the flame of";
+        message2 = "'s grill";
         break;
       case MOD_LCANNON:
-        message = "felt the full force of";
-        message2 = "'s lucifer cannon";
+        message = "saw";
+        message2 = "'s pretty lights come too close";
         break;
       case MOD_LCANNON_SPLASH:
-        message = "was caught in the fallout of";
-        message2 = "'s lucifer cannon";
+        message = "was blown up by the vicinity of";
+        message2 = "'s exploding sun";
         break;
       case MOD_GRENADE:
-        message = "couldn't escape";
-        message2 = "'s grenade";
+        message = "didn't see";
+        message2 = " drop the ^2GREEN^7-^1AID^7-labelled bottle";
         break;
 
       case MOD_ABUILDER_CLAW:
-        message = "should leave";
-        message2 = "'s buildings alone";
+        message = "was fully owned by";
+        message2 = "'s ^2granger";
         break;
       case MOD_LEVEL0_BITE:
-        message = "was bitten by";
+        message = "was nibbled by";
+	      message2 = "'s dretch";
         break;
       case MOD_LEVEL1_CLAW:
-        message = "was swiped by";
+        message = "was assasinated slowly and gracefully by";
         Com_sprintf( className, 64, "'s %s",
             BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL1 ) );
         message2 = className;
         break;
       case MOD_LEVEL2_CLAW:
-        message = "was clawed by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL2 ) );
-        message2 = className;
+        message = "had noticed his body parts suddenly went missing as";
+        message2 = " attempted to closen their distance <3";
         break;
       case MOD_LEVEL2_ZAP:
-        message = "was zapped by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL2 ) );
-        message2 = className;
+        message = "'s life energy was drained by";
+        message2 = "'s blue light beam";
         break;
       case MOD_LEVEL3_CLAW:
-        message = "was chomped by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL3 ) );
-        message2 = className;
+        message = "had been decapitated by the awe of";
+        message2 = "'s jaw";
         break;
       case MOD_LEVEL3_POUNCE:
-        message = "was pounced upon by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL3 ) );
-        message2 = className;
+        message = "had his lovely face munted as";
+        message2 = "'s dragoon flew past";
         break;
       case MOD_LEVEL3_BOUNCEBALL:
-        message = "was sniped by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL3 ) );
-        message2 = className;
+        message = "caught";
+        message2 = "'s acid barb";
         break;
       case MOD_LEVEL4_CLAW:
-        message = "was mauled by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL4 ) );
-        message2 = className;
+        message = "was diced by";
+        message2 = "'s Tyrant";
         break;
       case MOD_LEVEL4_CHARGE:
-        message = "should have gotten out of the way of";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL4 ) );
-        message2 = className;
+        message = " was mowed down when he heard";
+        message2 = "'s RaWr";
         break;
 
       case MOD_POISON:
-        message = "should have used a medkit against";
-        message2 = "'s poison";
+        message = "had became unfortunate from";
+        message2 = "'s AIDS";
         break;
       case MOD_LEVEL1_PCLOUD:
-        message = "was gassed by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL1 ) );
-        message2 = className;
+        message = "was drugged by";
+        message2 = "'s basi love gas";
         break;
 
 
       case MOD_TELEFRAG:
-        message = "tried to invade";
-        message2 = "'s personal space";
+        message = "should've moved from the teleporter when";
+        message2 = " arrived";
         break;
       default:
-        message = "was killed by";
+        message = "was murdered by";
         break;
     }
 
@@ -335,8 +332,8 @@ static void CG_Obituary( entityState_t *ent )
         attackerName, message2 );
       if( teamKill && attacker == cg.clientNum )
       {
-        CG_CenterPrint( va ( "You killed " S_COLOR_RED "TEAMMATE "
-          S_COLOR_WHITE "%s", targetName ),
+        CG_CenterPrint( va ( "M8,  You broke the law by " S_COLOR_RED "KILLING TEAMMATE "
+          S_COLOR_WHITE "%s. Don't do that again.", targetName ),
           SCREEN_HEIGHT * 0.30, BIGCHAR_WIDTH );
       }
       return;
@@ -344,7 +341,7 @@ static void CG_Obituary( entityState_t *ent )
   }
 
   // we don't know what it was
-  CG_Printf( "%s died.\n", targetName );
+  CG_Printf( "%s pressed a red button on his ipeed's screen.\n", targetName );
 }
 
 //==========================================================================
