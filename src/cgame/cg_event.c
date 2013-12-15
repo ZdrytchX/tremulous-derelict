@@ -301,7 +301,7 @@ static void CG_Obituary( entityState_t *ent )
         message2 = "'s Tyrant";
         break;
       case MOD_LEVEL4_CHARGE:
-        message = " was mowed down when he heard";
+        message = " was ^2,,,^7≤^8.^7=^8.^7/^8*^7'd down when he heard";
         message2 = "'s RaWr";
         break;
 
