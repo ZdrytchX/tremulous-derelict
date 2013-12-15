@@ -730,7 +730,19 @@ static qboolean PM_CheckJump( void )
               normal, pm->ps->velocity );
   }
   else
-    pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+  { //TODO: Add int var, probably need to ask Newborn (challenge promode developer)
+  //for help for client-game and game cvar interactions, maybe I could find out with the timescale cvar...
+  //I tried it before from a CPM installation package but tremulous removed the Quake3 GameMode function
+  //i.e. g/cg_rampjumps: 0 = vanilla, 1 = {MG}, 2 = bob's oc style
+	//where Bob's OC style is similar to the marauder's vanilla ramp jumping configuration
+
+	//Really, ramp jumps aren't that complicated.
+	if(pm->ps->velocity[ 2 ] > 0)
+	pm->ps->velocity[ 2 ] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+	else
+	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+  PM_AddEvent( EV_JUMP );//jumped!
+  }
 
   PM_AddEvent( EV_JUMP );
 

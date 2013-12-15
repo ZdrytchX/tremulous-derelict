@@ -732,6 +732,7 @@ Fixed fov at intermissions, otherwise account for fov variable and zooms.
 
 #define FOVWARPTIME     400.0
 
+//@Jkent: Is there a way to get access to R_customheight/width and/or r_height/width? (Get the newer height-dependant FOV rather than width-dependant as 1.1 widescreens actually have smaller FOVs)
 static int CG_CalcFov( void )
 {
   float     x;
