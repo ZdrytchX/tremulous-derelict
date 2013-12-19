@@ -2729,6 +2729,17 @@ static void PM_Weapon( void )
   {
     return;
   }
+  
+  //ZdrytchX: Anti-Charge Combo
+  //@jeff: Please help/tell me why/how the "no effect" error occurs and/or possibly fix this.
+   if( (pm->ps->stats[ STAT_MISC ] > 0 /*|| pm->ps->stats[ STAT_STATE ] == SS_CHARGING */)
+    && pm->ps->weapon == WP_ALEVEL4 
+    && pm->cmd.buttons & BUTTON_ATTACK
+    && pm->ps->pm_flags & PMF_CHARGE )
+  { //TODO: compiler returns 'no effect' but it actually works.
+     pm->ps->weaponTime ==  LEVEL4_CHARGE_TIMEOUT; //TODO: sv_fps.integer?
+    return;
+  }
 
   if( pm->ps->weaponTime > 0 )
     pm->ps->weaponTime -= pml.msec;

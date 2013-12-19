@@ -109,15 +109,31 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CLAW_WIDTH           20.0f
 #define LEVEL4_CLAW_REPEAT          750
 #define LEVEL4_CLAW_K_SCALE         1.0f
+
+//@jeff: Can we move regen aura to basi (like unvanquished)? It's the sole problem of 1.1 hall camping.
 #define LEVEL4_REGEN_RANGE          200.0f
-#define LEVEL4_REGEN_MOD            2.0f
+#define LEVEL4_REGEN_MOD            2.0f 
+
+//Welcome to the world of 1.1 brain grinders. I left a few minor explainations, where 'trample' is the actual attack.
 #define LEVEL4_CHARGE_SPEED         2.0f
-#define LEVEL4_CHARGE_TIME          3000
-#define LEVEL4_CHARGE_CHARGE_TIME   1500
+#define LEVEL4_CHARGE_TIME          4000 //Leave alone!
+#define LEVEL4_CHARGE_CHARGE_TIME   4000 //Trample time
+#define LEVEL4_CHARGING_CHARGE_TIME 2000 //Charging up trample time
+#define LEVEL4_CHARGE_TAKE          100 //Charge taken per decasecond. Default is 100.
+#define LEVEL4_TRAMPLE_CHARGE       200 //Charging Charge per decasecond. Default 100.   
 #define LEVEL4_MIN_CHARGE_TIME      750
+//JUST LEAVE THIS AS IS (confusing shit to explain)
 #define LEVEL4_CHARGE_CHARGE_RATIO  (LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME)
-#define LEVEL4_CHARGE_REPEAT        1000
-#define LEVEL4_CHARGE_DMG           ADM(110)
+
+#define LEVEL4_CHARGE_REPEAT        150 //1.1: 1000, gpp: 100, unv: 350(?)
+                //the more lower, the more ping-bias, which means my disadvantage, oh well.
+#define LEVEL4_CHARGE_TIMEOUT       LEVEL4_CHARGE_REPEAT //After charge has run out, wait this before you can swipe
+
+#define LEVEL4_CHARGE_DMG           ADM(56) //def. 100 (to help with armoured) - DO NOT USE '0'
+#define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
+#define LEVEl4_CHARGE_K_ORIGINAL    65.0f //gpp would be 111.0f, unvanquished would be 56.0f
+//counteracts the claw knockback and damage differences between this and LEVEl4_CHARGE_K_ORIGINAL
+#define LEVEl4_CHARGE_K_COUNTER     (1/LEVEL4_CLAW_K_SCALE)*(LEVEl4_CHARGE_K_ORIGINAL/LEVEL4_CHARGE_DMG)
 
 
 
@@ -193,7 +209,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define LEVEL4_SPEED                1.2f
 #define LEVEL4_VALUE                AVM(800)
-#define LEVEL4_HEALTH               AHM(400)
+#define LEVEL4_HEALTH               AHM(400)//@jeff: I find gpp rant easy to kill, yet 1.1 too buff. Set to 375?
 #define LEVEL4_REGEN                7
 #define LEVEL4_COST                 2
 

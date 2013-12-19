@@ -189,6 +189,9 @@ vmCvar_t  g_msgTime;
 
 vmCvar_t  g_specNoclip;
 
+//zdrytchx's add-ons
+vmCvar_t  g_level4_trample_buildable_percent;
+
 static cvarTable_t   gameCvarTable[ ] =
 {
   // don't override the cheat state set by the system
@@ -360,6 +363,9 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_banNotice, "g_banNotice", "", CVAR_ARCHIVE, 0, qfalse  },
 
   { &g_specNoclip, "g_specNoclip", "0", CVAR_ARCHIVE, 0, qtrue },
+
+//zdrytchx's add-ons
+  { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent","35", CVAR_ARCHIVE,0, qfalse },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

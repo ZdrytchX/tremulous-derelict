@@ -1379,6 +1379,9 @@ extern  vmCvar_t  g_buildLogMaxLength;
 
 extern  vmCvar_t  g_specNoclip;
 
+//zdrytchx's add-ons [Whenever you see 'zdrytchx' it's just a bookmark to find stuff easier :)]
+extern  vmCvar_t  g_level4_trample_buildable_percent;
+
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );
 int       trap_Milliseconds( void );

@@ -1451,9 +1451,15 @@ void ChargeAttack( gentity_t *ent, gentity_t *victim )
   if( !victim->takedamage )
     return;
 
-  damage = (int)( ( (float)ent->client->ps.stats[ STAT_MISC ] / (float)LEVEL4_CHARGE_TIME ) * LEVEL4_CHARGE_DMG );
+  damage = LEVEL4_CHARGE_DMG * (float)ent->client->ps.stats[ STAT_MISC ] /
+           LEVEL4_CHARGE_TIME + LEVEL4_CHARGE_EXTRA;
+  //allow level4 charge to do only little damage to buildables so it isn't overpowered like hell
+  if( victim->s.eType == ET_BUILDABLE ) 
+  {
+    damage *= (float)(g_level4_trample_buildable_percent.integer * 0.01);
+  }
 
-  G_Damage( victim, ent, ent, forward, victim->s.origin, damage, 0, MOD_LEVEL4_CHARGE );
+  G_Damage( victim, ent, ent, forward, victim->s.origin, damage, 0|DAMAGE_NO_LOCDAMAGE, MOD_LEVEL4_CHARGE );
 }
 
 //======================================================================

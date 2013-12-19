@@ -652,7 +652,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
         client->ps.stats[ STAT_MISC ] = pounceSpeed;
     }
 
-    //client is charging up for a... charge
+    //client is charging up for a trample
     if( client->ps.weapon == WP_ALEVEL4 )
     {
       if( client->ps.stats[ STAT_MISC ] < LEVEL4_CHARGE_TIME && ucmd->buttons & BUTTON_ATTACK2 &&
@@ -667,7 +667,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
           //if( client->ps.stats[ STAT_MISC ] <= 0 )
           //  G_AddEvent( ent, EV_LEV4_CHARGE_PREPARE, 0 );
 
-          client->ps.stats[ STAT_MISC ] += (int)( 100 * (float)LEVEL4_CHARGE_CHARGE_RATIO );
+          client->ps.stats[ STAT_MISC ] += (int)( LEVEL4_TRAMPLE_CHARGE * (float)LEVEL4_CHARGE_CHARGE_RATIO ); // 100 * level4chargestuff
 
           if( client->ps.stats[ STAT_MISC ] > LEVEL4_CHARGE_TIME )
             client->ps.stats[ STAT_MISC ] = LEVEL4_CHARGE_TIME;
@@ -681,7 +681,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
       {
         if( client->ps.stats[ STAT_MISC ] > LEVEL4_MIN_CHARGE_TIME )
         {
-          client->ps.stats[ STAT_MISC ] -= 100;
+          client->ps.stats[ STAT_MISC ] -= LEVEL4_CHARGE_TAKE;
 
           if( client->charging == qfalse )
             G_AddEvent( ent, EV_LEV4_CHARGE_START, 0 );
@@ -690,11 +690,17 @@ void ClientTimerActions( gentity_t *ent, int msec )
           client->ps.stats[ STAT_STATE ] |= SS_CHARGING;
 
           //if the charger has stopped moving take a chunk of charge away
+          /*
           if( VectorLength( client->ps.velocity ) < 64.0f || aRight )
             client->ps.stats[ STAT_MISC ] = client->ps.stats[ STAT_MISC ] / 2;
+          */
 
           //can't charge backwards
-          if( ucmd->forwardmove < 0 )
+          //ZdrytchX: If this feels too buggy, we'll revert. This basically means you can
+          //stop moving forward and land on someone and still do damage. However it also means
+          //that whoever touches you (even from top) will still receive damage since charge
+          //attack basically turns yourself into a quake 'missile' in order to deal damage
+          if( ucmd->forwardmove <= 0 )
             client->ps.stats[ STAT_MISC ] = 0;
         }
         else
