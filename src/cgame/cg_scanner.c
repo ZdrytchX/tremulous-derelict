@@ -242,35 +242,40 @@ void CG_AlienSense( rectDef_t *rect )
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.humanBuildablePos[ i ], origin, relOrigin );
 
+    buildable[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
+    
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, buildable );
   }
-
   //draw friendly buildables
   for( i = 0; i < entityPositions.numAlienBuildables; i++ )
   {
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.alienBuildablePos[ i ], origin, relOrigin );
 
+    friendbuildable[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
+  
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, friendbuildable );
   }
-
   //draw human clients
   for( i = 0; i < entityPositions.numHumanClients; i++ )
   {
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.humanClientPos[ i ], origin, relOrigin );
 
+    client[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
+    
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, client );
   }
-
   //draw alien clients
   for( i = 0; i < entityPositions.numAlienClients; i++ )
   {
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.alienClientPos[ i ], origin, relOrigin );
+
+    friendclient[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
 
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, friendclient );
