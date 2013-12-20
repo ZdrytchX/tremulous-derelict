@@ -1749,6 +1749,7 @@ void Cmd_CallVote_f( gentity_t *ent )
           sizeof( level.voteDisplayString ), "[Poll] \'%s\'", arg2plus );
    }
    else if( !Q_stricmp( arg1, "sudden_death" ) ||
+     !Q_stricmp( arg1, "sd" ) ||
      !Q_stricmp( arg1, "suddendeath" ) )
    {
      if(!g_suddenDeathVotePercent.integer)
@@ -1778,11 +1779,49 @@ void Cmd_CallVote_f( gentity_t *ent )
 
      }
    }
+
+   //Teamkill (FFA actually) Mode
+   else if( !Q_stricmp( arg1, "ffa" ) ||
+     !Q_stricmp( arg1, "freeforall" ) ||
+     !Q_stricmp( arg1, "tk" ) ||
+     !Q_stricmp( arg1, "teamkill" ) ||
+     !Q_stricmp( arg1, "teamkillmode" ) )
+   {
+     if(!g_mode_teamkillVotePercent.integer)
+     {
+       trap_SendServerCommand( ent-g_entities, "print \"Teamkill/FreeForAll votes have been disabled\n\"" );
+       return;
+     } 
+    else if( g_mode_teamkill.integer == 1 ) 
+     {
+      level.votePassThreshold = g_mode_teamkillVotePercent.integer;
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_teamkill \"0\"" );
+      //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_dretchpunt \"1\"" );
+      //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_friendlyFiremovementattacks \"0\"" );
+      //exec any other important changes
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "exec \"cfg/normal\"" );
+      Com_sprintf( level.voteDisplayString,
+           sizeof( level.voteDisplayString ), "End Teamkill/FreeForAll mode" );
+     }
+    else 
+     {
+       level.votePassThreshold = g_mode_teamkillVotePercent.integer;
+       Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_teamkill \"1\"" );
+       //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_dretchpunt \"0\"" );
+       //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_friendlyFiremovementattacks \"0.7\"" );
+       //exec any other important changes
+       Com_sprintf( level.voteString, sizeof( level.voteString ), "exec \"cfg/tk\"" );
+       Com_sprintf( level.voteDisplayString,
+           sizeof( level.voteDisplayString ), "Enable Teamkill/FreeForAll mode" );
+     }
+   }
+
   else
   {
     trap_SendServerCommand( ent-g_entities, "print \"Invalid vote string\n\"" );
     trap_SendServerCommand( ent-g_entities, "print \"Valid vote commands are: "
-      "map, map_restart, draw, nextmap, kick, mute, unmute, poll, and sudden_death\n" );
+      "map, map_restart, draw, nextmap, kick, mute, unmute,\n"
+      "poll, sudden_death, and teamkill (freeforall)\n" );
     return;
   }
   
