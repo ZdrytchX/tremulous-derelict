@@ -76,7 +76,7 @@ Add Challenge ProMode physics? (I successfully did it with Cuboid mod and people
 
 Change the Human's FoV other aliens higher if cg_widescreen is enabled (or if jeff knows how to, depend on the ratio of r_(custom)height to r_(custom)width cvars. However we need to be cautious not to allow going past 160 degrees.
 
-Add/Fix Chat Boxes above player's heads (I Forgot what changes I made to my client)
+Add/Fix Chat bubbles/Boxes above player's heads (I Forgot what changes I made to my client)
 
 
 *UI

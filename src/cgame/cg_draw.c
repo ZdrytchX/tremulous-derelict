@@ -3283,17 +3283,17 @@ static qboolean CG_DrawQueue( void )
   if( cg.snap->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
   {
     if( cgs.numAlienSpawns == 1 )
-      Com_sprintf( buffer, MAX_STRING_CHARS, "There is 1 spawn remaining." );
+      Com_sprintf( buffer, MAX_STRING_CHARS, "There is 1 egg remaining." );
     else
-      Com_sprintf( buffer, MAX_STRING_CHARS, "There are %d spawns remaining.",
+      Com_sprintf( buffer, MAX_STRING_CHARS, "There are %d eggs remaining.",
                    cgs.numAlienSpawns );
   }
   else if( cg.snap->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
   {
     if( cgs.numHumanSpawns == 1 )
-      Com_sprintf( buffer, MAX_STRING_CHARS, "There is 1 spawn remaining." );
+      Com_sprintf( buffer, MAX_STRING_CHARS, "There is 1 telenode remaining." );
     else
-      Com_sprintf( buffer, MAX_STRING_CHARS, "There are %d spawns remaining.",
+      Com_sprintf( buffer, MAX_STRING_CHARS, "There are %d telenodes remaining.",
                    cgs.numHumanSpawns );
   }
 
