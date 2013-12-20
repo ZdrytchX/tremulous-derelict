@@ -192,6 +192,9 @@ vmCvar_t  g_specNoclip;
 //zdrytchx's add-ons
 vmCvar_t  g_level4_trample_buildable_percent;
 
+vmCvar_t  g_hitsounds;
+vmCvar_t  g_hitsounds_type;
+
 vmCvar_t  g_mode_teamkill;
 vmCvar_t  g_mode_teamkillVotePercent;
 vmCvar_t  g_mode_teamkill_human_knockback;
@@ -370,6 +373,12 @@ static cvarTable_t   gameCvarTable[ ] =
 
 //zdrytchx's add-ons
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent","35", CVAR_ARCHIVE,0, qfalse },
+
+  //g_hitsounds_type is an bitfield variable from 0-7
+  //4 = No teammates, 2 = no buildables, 1 = monotone
+  //vanilla trem would have g_hitsounds 1 and g_hitsounds_type 1 although clients didn't actually make hitsounds
+  { &g_hitsounds, "g_hitsounds",                                 "1", CVAR_ARCHIVE, 0, qfalse },
+  { &g_hitsounds_type, "g_hitsounds_type",                       "4", CVAR_ARCHIVE, 0, qfalse }, 
 
   { &g_mode_teamkill, "g_mode_teamkill",                                    "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_teamkillVotePercent, "g_mode_teamkillVotePercent",             "80", CVAR_ARCHIVE, 0, qfalse },

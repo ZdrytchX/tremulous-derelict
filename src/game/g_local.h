@@ -1382,6 +1382,9 @@ extern  vmCvar_t  g_specNoclip;
 //zdrytchx's add-ons [Whenever you see 'zdrytchx' it's just a bookmark to find stuff easier :)]
 extern  vmCvar_t  g_level4_trample_buildable_percent;
 
+extern  vmCvar_t  g_hitsounds;
+extern  vmCvar_t  g_hitsounds_type;
+
 extern  vmCvar_t  g_mode_teamkill;
 extern  vmCvar_t  g_mode_teamkillVotePercent;
 extern  vmCvar_t  g_mode_teamkill_human_knockback;

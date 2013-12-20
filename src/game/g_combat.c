@@ -1320,10 +1320,22 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       && targ->s.eType != ET_MISSILE
       && targ->s.eType != ET_GENERAL )
   {
-    if( OnSameTeam( targ, attacker ) )
-      attacker->client->ps.persistant[ PERS_HITS ]--;
-    else
-      attacker->client->ps.persistant[ PERS_HITS ]++;
+//Hit sounds
+    if(g_hitsounds.integer)
+    {
+      //check teammates
+      if(!(OnSameTeam( targ, attacker ) && g_hitsounds_type.integer & 4) )
+      //Check buildables
+      if(!(targ->s.eType == ET_BUILDABLE && g_hitsounds_type.integer & 2) )
+      {
+        //check monotone
+        //if(monotone)
+        if(g_hitsounds_type.integer & 1)
+        attacker->client->ps.persistant[ PERS_HITS ]++;
+        else //We don't want to show damages for pre-armour, but after-armour. I can do both.
+        attacker->client->ps.persistant[ PERS_HITS ]+= take;
+      }
+     }
   }
 
   take = damage;
