@@ -192,6 +192,10 @@ vmCvar_t  g_specNoclip;
 //zdrytchx's add-ons
 vmCvar_t  g_level4_trample_buildable_percent;
 
+vmCvar_t  g_mode_teamkill;
+vmCvar_t  g_mode_teamkillVotePercent;
+vmCvar_t  g_mode_teamkill_human_knockback;
+
 static cvarTable_t   gameCvarTable[ ] =
 {
   // don't override the cheat state set by the system
@@ -366,6 +370,10 @@ static cvarTable_t   gameCvarTable[ ] =
 
 //zdrytchx's add-ons
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent","35", CVAR_ARCHIVE,0, qfalse },
+
+  { &g_mode_teamkill, "g_mode_teamkill",                                    "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_teamkillVotePercent, "g_mode_teamkillVotePercent",             "80", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_teamkill_human_knockback, "g_mode_teamkill_human_knockback",  "1.8", CVAR_ARCHIVE, 0, qfalse },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

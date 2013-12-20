@@ -257,9 +257,10 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s, had %3i HP.\n\"", killerName, attacker->health ) );
    }
 
-    if( attacker == self || OnSameTeam( self, attacker ) )
+    if( attacker != self && ( OnSameTeam( self, attacker ) ) )
     {
-      AddScore( attacker, -1 );
+      if (!g_mode_teamkill.integer) { AddScore( attacker, -1 ); }
+      else AddScore( attacker, 1 );
 
       // Retribution: transfer value of player from attacker to victim
       if( g_retribution.integer) {
@@ -278,12 +279,14 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
           type = "credits";
         }
 
+        if(!g_mode_teamkill.integer){
         if( attacker->client->ps.persistant[ PERS_CREDIT ] < tk_value )
           tk_value = attacker->client->ps.persistant[ PERS_CREDIT ];
         if( self->client->ps.persistant[ PERS_CREDIT ]+tk_value > max )
           tk_value = max-self->client->ps.persistant[ PERS_CREDIT ];
+        }
 
-        if( tk_value > 0 ) {
+        if( tk_value > 0 && !g_mode_teamkill.integer ) {
 
           // adjust using the retribution cvar (in percent)
           tk_value = tk_value*g_retribution.integer/100;
@@ -292,11 +295,36 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
           G_AddCreditToClient( attacker->client, -tk_value, qtrue );
 
           trap_SendServerCommand( self->client->ps.clientNum,
-            va( "print \"Received ^3%d %s ^7from %s ^7in retribution.\n\"",
+            va( "print \"Received ^3%d %s ^7in compensation from %s^7.\n\"",
             tk_value, type, attacker->client->pers.netname ) );
           trap_SendServerCommand( attacker->client->ps.clientNum,
             va( "print \"Transfered ^3%d %s ^7to %s ^7in retribution.\n\"",
             tk_value, type, self->client->pers.netname ) );
+        }
+        else if (g_mode_teamkill.integer)
+        {
+          if(attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS)
+          tk_value += FREEKILL_ALIEN;
+          else
+          tk_value += FREEKILL_HUMAN;
+
+          tk_value = tk_value*g_retribution.integer/100;
+          if (tk_value < 1)
+          tk_value = 1;
+
+          G_AddCreditToClient( attacker->client, tk_value, qtrue );
+
+          trap_SendServerCommand( attacker->client->ps.clientNum,
+            va( "print \"Picked up ^5%d %s ^7from %s^7's corpse.\n\"",
+            tk_value, type, self->client->pers.netname ) );
+          if( self->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+            {
+            trap_Cvar_Set( "g_alienKills", va( "%d", g_alienKills.integer + 1 ) );
+            }
+          else
+            {
+            trap_Cvar_Set( "g_humanKills", va( "%d", g_humanKills.integer + 1 ) );
+            }
         }
           }
       }
@@ -309,6 +337,9 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
       }
     }
+    else if (attacker == self)
+    AddScore( attacker, -1 ); //don't take funds, allow cliff jumping stunt-shooting humans to grab creds
+
     else
     {
       AddScore( attacker, 1 );
@@ -346,7 +377,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
     totalDamage += (float)self->credits[ i ];
 
   // if players did more than DAMAGE_FRACTION_FOR_KILL increment the stage counters
-  if( !OnSameTeam( self, attacker ) && totalDamage >= ( self->client->ps.stats[ STAT_MAX_HEALTH ] * DAMAGE_FRACTION_FOR_KILL ) )
+  if( (!OnSameTeam( self, attacker ) || g_mode_teamkill.integer != 0) && totalDamage >= ( self->client->ps.stats[ STAT_MAX_HEALTH ] * DAMAGE_FRACTION_FOR_KILL ) )
   {
     if( self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS ) 
     {
@@ -382,7 +413,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || g_mode_teamkill.integer)
           continue;
 
         if( !self->credits[ i ] )
@@ -414,7 +445,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS || g_mode_teamkill.integer )
           continue;
 
         //this client did no damage
@@ -1128,6 +1159,20 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] ) );
   }
 
+//Allow a more controllable zap knockback
+  if ( mod == MOD_LEVEL2_ZAP )
+		knockback *=  LEVEL2_AREAZAP_K_SCALE;
+  if ( mod == MOD_LEVEL2_CLAW )
+		knockback *=  LEVEL2_CLAW_K_REVERSE;
+
+  if(g_mode_teamkill.integer && mod != MOD_LCANNON
+  && mod != MOD_LCANNON_SPLASH && mod != MOD_GRENADE
+  && attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS
+  && targ->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS)//only apply to humans
+  {
+    knockback *= g_mode_teamkill_human_knockback.value;
+  }
+
   if( knockback > 200 )
     knockback = 200;
 
@@ -1140,12 +1185,37 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   // figure momentum add, even if the damage won't be taken
   if( knockback && targ->client )
   {
+    int     upvel = 0;//use int instead of float for speedy calcs
+    float   modder;
     vec3_t  kvel;
     float   mass;
 
     mass = 200;
 
+    //knockback = damage * class knockback mod
+    modder = g_knockback.value / mass * BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] );
+
     VectorScale( dir, g_knockback.value * (float)knockback / mass, kvel );
+
+//Special Case for direct hit missiles since they don't project the enemy relative to themselves
+//Just to give an idea of what I did to my other mod, for blaster combos:
+    /*switch(mod)
+    {
+    case MOD_BLASTER: //direct hit only
+      if( kvel[ 2 ] < BLASTER_K_UP
+        &&(g_mode_teamkill.integer || OnSameTeam( targ, attacker )) )//only in ffa/tk mode or against teammates
+        {
+        //hackery so they only lift when shot straight-on (meaning aiming up 30 degrees gives only little upward vel)
+        float kvelup = (1 / BLASTER_K_UP) * kvel[ 2 ] * kvel[ 2 ];
+        if(kvelup > 100)
+          kvelup = 100;
+        upvel += BLASTER_K_UP - kvelup;
+        }
+      break;
+    }*/
+
+		kvel[2] += upvel * modder;//add vel
+
     VectorAdd( targ->client->ps.velocity, kvel, targ->client->ps.velocity );
 
     // set the timer so that the other client can't cancel
@@ -1186,7 +1256,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
         VectorAdd( targ->client->ps.velocity, push, targ->client->ps.velocity );
         return;
       } 
-      else if(mod == MOD_LEVEL4_CHARGE || mod == MOD_LEVEL3_POUNCE )
+      else if( mod == MOD_LEVEL4_CHARGE || mod == MOD_LEVEL3_POUNCE || mod == MOD_LEVEL0_BITE  )
       { // don't do friendly fire on movement attacks
         if( g_friendlyFireMovementAttacks.value <= 0 || ( g_friendlyFire.value<=0 && g_friendlyFireAliens.value<=0 ) )
           return;
@@ -1220,7 +1290,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     if( targ->s.eType == ET_BUILDABLE && attacker->client &&
         targ->biteam == attacker->client->pers.teamSelection )
     {
-      if(mod == MOD_LEVEL4_CHARGE || mod == MOD_LEVEL3_POUNCE ) 
+      if(mod == MOD_LEVEL4_CHARGE || mod == MOD_LEVEL3_POUNCE )  //was gonna allow dretches tk structures but nah.
       {
          if(g_friendlyFireMovementAttacks.value <= 0)
            return;

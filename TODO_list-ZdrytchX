@@ -14,8 +14,10 @@ Legend:
 
 Add Teamkill/Free For All Mode XD
 ->Allow dretch to bite aliens in tk
-->g_mode_teamkill cvars
+->[Done]g_mode_teamkill cvars
 ->cfg/normal and cfg/tk cfgs
+
+Add g_hitsounds
 
 *BGame
 

@@ -77,6 +77,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_CLAW_K_SCALE         1.0f
 #define LEVEL2_CLAW_U_REPEAT        400
 #define LEVEL2_CLAW_U_K_SCALE       1.0f
+#define LEVEL2_CLAW_K_REVERSE       0.0f//For claws only, it won't do anything until I allow alien melee to deal knockback
+#define LEVEL2_AREAZAP_K_SCALE      -3.0f //Chain-ees get pulled together with this
+
 #define LEVEL2_AREAZAP_DMG          ADM(80)
 #define LEVEL2_AREAZAP_RANGE        200.0f
 #define LEVEL2_AREAZAP_WIDTH        15.0f
