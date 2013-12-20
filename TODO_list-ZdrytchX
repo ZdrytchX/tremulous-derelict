@@ -1,3 +1,10 @@
+ _____    ______     ____    _____      ____     _        _______     ___     _______    _____
+|  ___|  |  __  \   |  __|  |  _  \    |  __|   | |      |__   __|   /  _|   |__   __|  |___  |
+| |      | |  \  |  | |     | |_| /    | |      | |         | |     /  /        | |         | |
+| |      | |  |  |  | |=>   |  __ \    | |=>    | |         | |     |  |        | |         | |
+| |___   | |__/  |  | |__   | |  \ \   | |__    | |___    __| |__   \  \_       | |      ___| |
+|_____|  |______/   |____|  |_|   \_\  |____|   |_____|  |_______|   \___|      |_|     |_____|
+
 ***ZdrytchX's TODO (planned ideas) list:***
 [made 19/12/2013]
 [last updated 20/12/2013]
@@ -45,6 +52,7 @@ Je ne sais pas :'(
 
 Add Sixthly's /allstats patch (It's pretty!)
 Add Sixthly's Feed/Kill Streaks patch
+Other Sixthly's Shat
 
 *BGame
 
@@ -56,20 +64,22 @@ Add Sixthly's Feed/Kill Streaks patch
 
 
 
-***Ones that need Jeff's permission or help, or even just so he knows (just so he's happy)***
+***Ones that need Jeff's permission just so he knows (just so he's happy)***
+
 *Game
 
 Re-Name the admin.dat administrative rights flags for simplier and/or logical reference
 
-Add Sixthly's Map Rotation patches (Also need sixthly's help, it'll be confusing for you too jeffy as it appears to me to be incomplete as if six didn't commit his latest changes)
-
-Add VampireMode (May need help and need to make a new branch in case something goes wrong, it crashes my gpp-1.1 qvm occasionally at random times)
-
-Add Smooth Alien Regeneration (May cause a crash, need to make a new branch too for this one, but the result is fabulous)
-->Add Human dynamic health regeneration so when humans have no nodes, they don't die out so quickly as aliens tend to last a long time (which smooth alien regeneration will also fix)
-
 Teamkill Mode (I can do solo, see top)
-->Allow trappers to deal damage so we can have turrets shoot humans and trappers shoot aliens to prevent spawn camping (or we could use instagib maps, with only a rifle =[ )
+->Allow trappers to deal damage (apparently they have to deal 1 damage on non-teamkill due to round-up if I make the damage cvar-dependant, missing MODs are easy fix) so we can have turrets shoot humans and trappers shoot aliens to prevent spawn camping (or we could use instagib maps, with only a rifle =[ )
+
+Set Min.Stamina to jump to -800 (Because it makes no sense to get tired AFTER you can't jump)
+
+Give Tyrants an acid bomb to counter grenades and the luci, which acts like a long-range grenade for base killing (and give tyrants a purpous other than kill whoring and meat shielding)
+
+Add -ve knockback to the marauder's zap (It's fun as hell, although its ping-bias too)
+
+[Done]Convert Tyrant's Trample into GPP-style, can be reverted by simply changing two or three things in trem.h and one thing in bg_pmove.c
 
 *BGame
 
@@ -77,24 +87,32 @@ Add Challenge ProMode physics? (I successfully did it with Cuboid mod and people
 
 *CGame
 
-Change the Human's FoV other aliens higher if cg_widescreen is enabled (or if jeff knows how to, depend on the ratio of r_(custom)height to r_(custom)width cvars. However we need to be cautious not to allow going past 160 degrees.
-
-Add/Fix Chat bubbles/Boxes above player's heads (I Forgot what changes I made to my client)
 
 
 *UI
 
-*Other
+***I need help to do this***
 
+*Game
 
-______________________________________
+Add Sixthly's Map Rotation patches (Also need sixthly's help, it'll be confusing for you too jeffy as it appears to me to be incomplete as if six didn't commit his latest changes)
 
+Add Smooth Alien Regeneration (May cause a crash, need to make a new branch too for this one, but the result is fabulous)
+->Add Human dynamic health regeneration so when humans have no nodes, they don't die out so quickly as aliens tend to last a long time (which smooth alien regeneration will also fix)
 
-***Stuff I can't do***
+Add VampireMode (May need help and need to make a new branch in case something goes wrong, it crashes my gpp-1.1 qvm occasionally at random times)
+
+Challenge ProMode Physics toggle cvar with votes (Missing quake's g_gamemode function for Game/CGame compatability), requires jeffy's permission first anyway since this CPM is a huge change that is hard-coded unless this cvar works, by which I can add things like Quake 1/Quake World, Team Fortress Classic/Natural Selection/Half Life, WarSow, Xonotic ProMode, etc. physics simulation... yes, I just did say that.
 
 *BGame
 
-Challenge ProMode Physics toggle cvar with votes (Missing quake's g_gamemode function for Game/CGame compatability)
+
+*CGame
+
+Change the Human's FoV other aliens higher if cg_widescreen is enabled (or if jeff knows how to, depend on the ratio of r_(custom)height to r_(custom)width cvars. However we need to be cautious not to allow going past 160 degrees.
+
+Add/Fix Chat bubbles/Boxes above player's heads (I Forgot what changes I made to my client)
+
 ______________________________________
 
 ***Ideas***
@@ -105,3 +123,4 @@ Add In-Game music player
 
 ***Other***
 Unvar? I won't be able to keep up with the changes though :(
+Tremstats? (Perhaps one that'll track USEFUL information, unlike the official tremstats/unv-stats which just tracks playtime and total "score" rather than things like k/d ratios and average feeds per match etc.)
