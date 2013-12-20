@@ -2314,6 +2314,27 @@ void BG_FindBBoxForClass( int pclass, vec3_t mins, vec3_t maxs, vec3_t cmaxs, ve
   if( dmaxs != NULL )
     VectorCopy( bg_classList[ 0 ].deadMaxs,    dmaxs );
 }
+/*
+==============
+BG_FindSpriteHeightForClass
+
+The height at which we can float a sprite above the client's head.
+We can't use the bounding box alone because they are not consistent with the
+models (!).
+==============
+*/
+float BG_FindSpriteHeightForClass( int pclass ) {
+  int i;
+
+  for( i = 0; i < bg_numPclasses; i++ )
+  {
+    if( bg_classList[ i ].classNum == pclass )
+    {
+      return bg_classList[ i ].maxs[ 2 ]+bg_classList[ i ].spriteOffset;
+    }
+  }
+  return 0.f;
+}
 
 /*
 ==============

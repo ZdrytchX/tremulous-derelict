@@ -1240,6 +1240,7 @@ char      *BG_FindIconForUpgrade( int upgrade );
 qboolean  BG_FindPurchasableForUpgrade( int upgrade );
 qboolean  BG_FindUsableForUpgrade( int upgrade );
 WUTeam_t  BG_FindTeamForUpgrade( int upgrade );
+float     BG_FindSpriteHeightForClass( int pclass );
 
 // content masks
 #define MASK_ALL          (-1)

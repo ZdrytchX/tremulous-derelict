@@ -30,7 +30,6 @@ Add Polation-O-Meter
 [Done] Speedometer-in-Fps-meter "hack"
 [Done] cg_thirdpersonheight
 [Done] cg_firstperson fixes for my own bent gun (no one has this bug afaik, it's not tremfusion specific as it happens on gpp too, ask me about it and I'll explain it. This isn't really much of a fix since the angle actually changes with elevation.)
-Add/Fix Chat Boxes above player's heads
 
 *UI
 
@@ -76,6 +75,9 @@ Add Challenge ProMode physics? (I successfully did it with Cuboid mod and people
 *CGame
 
 Change the Human's FoV other aliens higher if cg_widescreen is enabled (or if jeff knows how to, depend on the ratio of r_(custom)height to r_(custom)width cvars. However we need to be cautious not to allow going past 160 degrees.
+
+Add/Fix Chat Boxes above player's heads (I Forgot what changes I made to my client)
+
 
 *UI
 

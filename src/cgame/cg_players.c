@@ -1707,7 +1707,6 @@ static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader )
 
   memset( &ent, 0, sizeof( ent ) );
   VectorCopy( cent->lerpOrigin, ent.origin );
-  ent.origin[ 2 ] += 48;
   ent.reType = RT_SPRITE;
   ent.customShader = shader;
   ent.radius = 10;
@@ -1716,6 +1715,11 @@ static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader )
   ent.shaderRGBA[ 1 ] = 255;
   ent.shaderRGBA[ 2 ] = 255;
   ent.shaderRGBA[ 3 ] = 255;
+
+    // Find the proper height to float the sprite
+  ent.origin[ 2 ] += BG_FindSpriteHeightForClass(
+    ( cent->currentState.powerups >> 8 ) & 0xFF );
+
   trap_R_AddRefEntityToScene( &ent );
 }
 
