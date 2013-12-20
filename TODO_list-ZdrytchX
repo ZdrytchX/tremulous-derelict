@@ -1,6 +1,6 @@
 ***ZdrytchX's TODO (planned ideas) list:***
 [made 19/12/2013]
-[last updated 19/12/2013]
+[last updated 20/12/2013]
 
 Legend:
 *<title>......Source code Category
@@ -30,6 +30,7 @@ Add Polation-O-Meter
 [Done] Speedometer-in-Fps-meter "hack"
 [Done] cg_thirdpersonheight
 [Done] cg_firstperson fixes for my own bent gun (no one has this bug afaik, it's not tremfusion specific as it happens on gpp too, ask me about it and I'll explain it. This isn't really much of a fix since the angle actually changes with elevation.)
+Add/Fix Chat Boxes above player's heads
 
 *UI
 
@@ -57,6 +58,8 @@ Add Sixthly's Feed/Kill Streaks patch
 *Game
 
 Re-Name the admin.dat administrative rights flags for simplier and/or logical reference
+
+Add Sixthly's Map Rotation patches (Also need sixthly's help, it'll be confusing for you too jeffy as it appears to me to be incomplete as if six didn't commit his latest changes)
 
 Add VampireMode (May need help and need to make a new branch in case something goes wrong, it crashes my gpp-1.1 qvm occasionally at random times)
 
@@ -86,7 +89,9 @@ ______________________________________
 
 *BGame
 
-Challenge ProMode Physics toggle cvar (Missing quake's g_gamemode function)
+Challenge ProMode Physics toggle cvar (Missing quake's g_gamemode function for Game/CGame compatability)
 ______________________________________
 
 ***Ideas***
+
+Unvar? I won't be able to keep up with the changes though :(
