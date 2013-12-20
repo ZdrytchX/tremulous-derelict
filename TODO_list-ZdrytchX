@@ -2,6 +2,9 @@
 [made 19/12/2013]
 [last updated 20/12/2013]
 
+Notes:
+-This is not a changelog, and so does not contain all miniature changes. Search the commits for miniature changes (i.e. changed 'x spawns remaining' to 'x telenodes remaining' for humans)
+
 Legend:
 *<title>......Source code Category
 <title>.......Description of change. First word is the action unless repeating from another category/section.
@@ -96,4 +99,9 @@ ______________________________________
 
 ***Ideas***
 
+*CGame/Client
+
+Add In-Game music player
+
+***Other***
 Unvar? I won't be able to keep up with the changes though :(
