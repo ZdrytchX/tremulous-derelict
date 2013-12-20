@@ -923,6 +923,7 @@ typedef struct
   vec3_t    deadMins;
   vec3_t    deadMaxs;
   float     zOffset;
+  float     spriteOffset;
 
   int       viewheight;
   int       crouchViewheight;
