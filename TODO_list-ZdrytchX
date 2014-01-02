@@ -1,7 +1,7 @@
  _____    ______     ____    _____      ____     _        _______     ___     _______    _____
 |  ___|  |  __  \   |  __|  |  _  \    |  __|   | |      |__   __|   /  _|   |__   __|  |___  |
 | |      | |  \  |  | |     | |_| /    | |      | |         | |     /  /        | |         | |
-| |      | |  |  |  | |=>   |  __ \    | |=>    | |         | |     |  |        | |         | |
+| |      | |  |  |  | |=>   |  __ \    | |=>    | |         | |    |  |         | |         | |
 | |___   | |__/  |  | |__   | |  \ \   | |__    | |___    __| |__   \  \_       | |      ___| |
 |_____|  |______/   |____|  |_|   \_\  |____|   |_____|  |_______|   \___|      |_|     |_____|
 
@@ -28,6 +28,7 @@ Legend:
 ->[Done]cfg/normal and cfg/tk cfgs
 
 [Done] g_hitsounds
+-> Fix Hitsounds (Cannot Play?)
 
 *BGame
 
@@ -38,6 +39,7 @@ Legend:
 [Done] dynamic alien blips
 Add Polation-O-Meter
 [Done] Speedometer-in-Fps-meter "hack"
+->Contact @Jeff: It'd be nice if you can teach me a better way to do the bar graph. The code's messily huge.
 [Done] cg_thirdpersonheight
 [Done] cg_firstperson fixes for my own bent gun (no one has this bug afaik, it's not tremfusion specific as it happens on gpp too, ask me about it and I'll explain it. This isn't really much of a fix since the angle actually changes with elevation.)
 
